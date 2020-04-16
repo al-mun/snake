@@ -8,3 +8,8 @@ body{
     border-style: dashed;
 }
 
+@media screen and (max-width: 400px){
+    .title{
+        font-size: 4rem;
+    }
+}

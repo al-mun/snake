@@ -7,11 +7,10 @@ function Snake(){                   //Need to say this because it's refering to 
     this.tail = [];  //store coordinates
 
     this.draw = function() {            //
-        ctx.fillStyle = "black";      //make snake white
+        ctx.fillStyle = "black";      //make snake black
 
         for (let i=0; i<this.tail.length; i++){                         //for loop - let i start at 0, while i is less than tail length, increment
             ctx.fillRect(this.tail[i].x, this.tail[i].y, scale, scale);     //make the tail at coordinates located behind the rect.
-
         }
         ctx.fillRect(this.x, this.y, scale, scale);         //Return snake to start
     }
@@ -20,7 +19,6 @@ function Snake(){                   //Need to say this because it's refering to 
         for(let i=0; i<this.tail.length -1; i++){               //for loop, 
             this.tail[i] = this.tail[i +1];
         }
-
         this.tail[this.total - 1] = {x: this.x, y: this.y};
 
         this.x += this.xSpeed;              
@@ -29,7 +27,7 @@ function Snake(){                   //Need to say this because it's refering to 
         if (this.x > canvas.width){
             this.x = 0;
         }
-        if (this.y > canvas.height){
+        if (this.y >= canvas.height){
             this.y = 0;
         }
         if (this.x < 0){
@@ -42,54 +40,55 @@ function Snake(){                   //Need to say this because it's refering to 
 
 this.changeDirection = function(direction){
     switch (direction){
-        case 'Up':
-            this.xSpeed = 0;
-            this.ySpeed = -scale * 1;
-            break;
-        case 'Down':
-            this.xSpeed = 0;
-            this.ySpeed = scale * 1;
-            break;
-        case 'Left':
-            this.xSpeed = -scale * 1
+      case 'Left':
+        if(!this.xSpeed > 0){           
+            this.xSpeed = -scale * 1;
             this.ySpeed = 0;
-            break;
-        case 'Right':
-            this.xSpeed = scale * 1;
-            this.ySpeed = 0
-            break;
+        }
+        break;
+      case 'Up':
+        if(!this.ySpeed > 0 ){           //if going anywhere but down, go up
+            this.xSpeed = 0;               //x-axis = 0
+            this.ySpeed = -scale * 1;      //y-axis = go up
+        }
+           break;
+      case 'Right':
+        if(!this.xSpeed > 0){
+            this.xSpeed = scale *1;
+            this.ySpeed = 0;
+        }
+        break;
+       case 'Down':                     //need to be going up to cancel down
+        if(!this.ySpeed > 0){           //if going anywhere but up, go down
+            this.xSpeed = 0;            
+            this.ySpeed = scale *1;
+        }
     }
-    //if player last move === player current move{ block move }
-    
-}
+    }
 
-this.eat = function(fruit){                         //eat function(parameter: fruit)
+    
+
+
+
+    this.eat = function(fruit){                         //eat function(parameter: fruit)
     //console.log(fruit);
-    if (this.x === fruit.x && this.y === fruit.y){      // if snake x equals fruit x and snake y equals fruit y 
-        this.total++;                                   //total = total +1
-        return true;                                    //true
-    }
-    return false;                                       //otherwise, false
+        if (this.x === fruit.x && this.y === fruit.y){      // if snake x equals fruit x and snake y equals fruit y 
+            this.total++;                                   //total = total +1
+            return true;                                    //true
+        }
+        return false;                                       //otherwise, false
         }
   
-        this.checkCollision = function() {                          //checking collision = functions 
-            for  (var i = 0; i <this.tail.length; i++){             //for (while i is less than tail length, increment)
-                if (this.x === this.tail[i].x &&                    //if snake x equals tail location x and snake y equals tail y 
-                    this.y === this.tail[i].y){
+    this.checkCollision = function() {                          //checking collision = functions 
+        for (var i = 0; i <this.tail.length; i++){             //for (the length of the current snake)
 
-                        //function restart {
-                            //pause the game
-                            //ask user if play again?
-                            //if yes{
-                                this.total = 0;
-                                this.tail = [];
-                            //}
-                            //else{
-                                //print the user's final score
-                                //print play again buton
-                            //}
-                        //}
-                        this.total = 0;                              //total now equals 0
-                        this.tail = [];                              //tail values return to empty array
-    }
-}}}
+            if (this.x === this.tail[i].x && this.y === this.tail[i].y){        //if the snake tail === snake 
+                if (confirm("You Lose! Play again?")){            //user loses, play again?
+                    Snake();                               //reset function
+                    this.total = 0;                              //total now equals 0
+                    this.tail = [];                              //tail values return to empty array  
+                }
+                else{
+                    location.reload();
+                }
+}}}}
