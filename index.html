@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
     <head>
         <title>Snake</title>
         <link href="snake.css" rel="stylesheet" type="text/css">
@@ -8,19 +10,24 @@
 <body>
     <div class="header">
         <h1 class="title">Snake</h1>
-        <h3 class = "controls">Use the arrow keys to control the snake.</h3>
+        <h3 class = "controls">Use your computer's arrow keys or on-screen keys to control the snake.</h3>
         <input type="button" value="Start" onclick="game()" id="btn"/>
-        <br>
-        <br>
+        <p class="score-title">Score</p>
+        <div class="score"></div>
     </div>
 
-
-    <canvas class="canvas" height="400" width="400" style="background-color: #aacc99">
+    <canvas class="canvas" height="360" width="360" style="background-color: #aacc99">
 
     </canvas>    
-    <p class="score-title">Score</p>
-    <div class="score"></div>
-    
+
+
+    <div class="arrows">
+        <button class="up">🡁</button>
+        <button class="down">🡃</button>
+        <button class="left">🡀</button>
+        <button class="right">🡂</button>
+    </div>
+
     
 </body>
 
