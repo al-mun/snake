@@ -1,5 +1,5 @@
 # snake
-al-mun.github.io/snake
+http://al-mun.github.io/snake
 
 Simple snake game that I decided to try to recreate. Uses the arrow keys to control movement of snake. Every time it eats a fruit it increases in size.
 
